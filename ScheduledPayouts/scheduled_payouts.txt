@@ -1,0 +1,59 @@
+When
+    [Case
+        (Deposit
+            (Role "Bank")
+            (Role "Funder")
+            (Token "" "")
+            (ConstantParam "FunderDeposit")
+        )
+        (When
+            []
+            (TimeParam "FirstPayoutWindow")
+            (Pay
+                (Role "Bank")
+                (Account (Role "Payee"))
+                (Token "" "")
+                (DivValue
+                    (ConstantParam "FunderDeposit")
+                    (Constant 3)
+                )
+                (When
+                    []
+                    (TimeParam "SecondPayoutWindow")
+                    (Pay
+                        (Role "Bank")
+                        (Account (Role "Payee"))
+                        (Token "" "")
+                        (DivValue
+                            (ConstantParam "FunderDeposit")
+                            (Constant 3)
+                        )
+                        (When
+                            []
+                            (TimeParam "ThirdPayoutWindow")
+                            (Pay
+                                (Role "Bank")
+                                (Account (Role "Payee"))
+                                (Token "" "")
+                                (DivValue
+                                    (ConstantParam "FunderDeposit")
+                                    (Constant 3)
+                                )
+                                (Pay
+                                    (Role "Bank")
+                                    (Account (Role "Funder"))
+                                    (Token "" "")
+                                    (AvailableMoney
+                                        (Role "Bank")
+                                        (Token "" "")
+                                    )
+                                    Close 
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )]
+    (TimeParam "FunderDepositDeadline")
+    Close 
